@@ -229,10 +229,52 @@
       box-shadow: 0 40px 100px rgba(15, 18, 33, 0.2);
     }
 
-    /* Final CTA gradient */
-    body[data-mode="light"] .final-cta {
-      background: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.08), transparent 70%);
-      border-top-color: rgba(15, 18, 33, 0.08);
+    body[data-mode="light"] .custom-select-trigger {
+      background: #F7F8FF;
+      border-color: rgba(15, 18, 33, 0.12);
+      color: #0F1221;
+    }
+
+    body[data-mode="light"] .custom-select-trigger.placeholder {
+      color: #8088AC;
+    }
+
+    body[data-mode="light"] .custom-select-trigger:focus,
+    body[data-mode="light"] .custom-select-trigger.open {
+      border-color: var(--primary);
+      background: #FFFFFF;
+    }
+
+    body[data-mode="light"] .custom-select-panel {
+      background: #FFFFFF;
+      border-color: rgba(15, 18, 33, 0.1);
+      box-shadow: 0 8px 32px rgba(15, 18, 33, 0.12);
+    }
+
+    body[data-mode="light"] .custom-select-option {
+      color: #4A5270;
+    }
+
+    body[data-mode="light"] .custom-select-option:not(:last-child) {
+      border-bottom-color: rgba(15, 18, 33, 0.06);
+    }
+
+    body[data-mode="light"] .custom-select-option:hover {
+      background: rgba(var(--primary-rgb), 0.06);
+      color: #0F1221;
+    }
+
+    body[data-mode="light"] .custom-select-option.selected {
+      background: rgba(var(--primary-rgb), 0.07);
+      color: var(--primary);
+    }
+
+    body[data-mode="light"] .custom-select-option .opt-check {
+      color: var(--primary);
+    }
+
+    body[data-mode="light"] .form-group.has-error .custom-select-trigger {
+      border-color: #F87171;
     }
 
     /* Footer */
@@ -472,6 +514,11 @@
       padding: 80px 64px 40px;
       max-width: 1000px;
       margin: 0 auto;
+    }
+
+    .hero .status-chip {
+      margin-bottom: 16px;
+      font-size: 13px;
     }
 
     /* Hero chips row */
@@ -1245,12 +1292,6 @@
       font-weight: 600;
     }
 
-    @media (max-width: 1300px) {
-      .status-chip {
-        display: none;
-      }
-    }
-
     @media (max-width: 1000px) {
       .status-chip {
         display: flex;
@@ -1350,9 +1391,9 @@
       width: 40px;
       height: 40px;
       border-radius: 8px;
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      color: var(--text);
+      background: transparent;
+      border: none;
+      color: var(--primary);
       cursor: pointer;
       flex-shrink: 0;
       margin-left: auto;
@@ -1366,7 +1407,7 @@
     }
 
     .mobile-menu-btn:hover {
-      border-color: rgba(var(--primary-rgb), 0.35);
+      opacity: 0.75;
     }
 
     .mobile-nav-overlay {
@@ -1473,11 +1514,6 @@
         /* clip any internal overflow */
       }
 
-      /* Hide status chip — keeps only logo + hamburger in the topbar on mobile */
-      .status-chip {
-        display: none;
-      }
-
       /* Smaller logo on tablet */
       .logo-img {
         height: 30px;
@@ -1512,10 +1548,6 @@
 
       .parallax-section {
         padding: 60px 0;
-      }
-
-      .final-cta {
-        padding: 70px 24px;
       }
 
       .wrap {
@@ -1563,10 +1595,6 @@
 
       .wrap {
         padding: 0 16px;
-      }
-
-      .final-cta {
-        padding: 56px 16px;
       }
 
       h1 {
@@ -2752,19 +2780,6 @@
       padding-bottom: 20px;
     }
 
-    /* ===== FINAL CTA ===== */
-    .final-cta {
-      text-align: center;
-      padding: 100px 40px;
-      background: radial-gradient(ellipse at center, rgba(var(--primary-rgb), 0.12), transparent 70%);
-      border-top: 1px solid var(--border);
-    }
-
-    .final-cta h2 {
-      font-size: 38px;
-      margin-bottom: 10px;
-    }
-
     .final-lines {
       font-size: 17px;
       color: var(--text-dim);
@@ -2777,68 +2792,114 @@
       font-weight: 700;
     }
 
-    .social-links {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      margin-top: 28px;
-      flex-wrap: wrap;
+    /* ===== CONTACT SECTION (Roboroid-style, light theme) ===== */
+    .contact-section {
+      background: #F7F8FA;
+      padding: 60px 64px;
     }
 
-    .social-btn {
+    .contact-grid {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 70px;
+      align-items: start;
+    }
+
+    .contact-left .contact-logo-img {
+      height: 44px;
+      object-fit: contain;
+      object-position: left center;
+      margin-bottom: 24px;
+    }
+
+    .contact-left p {
+      font-size: 15.5px;
+      line-height: 1.75;
+      color: #4B5566;
+      max-width: 460px;
+      margin-bottom: 28px;
+    }
+
+    .contact-discover-btn {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 11px 20px;
-      border-radius: 100px;
-      font-size: 13px;
-      font-weight: 600;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
       text-decoration: none;
-      border: 1px solid var(--glass-border);
-      background: var(--glass);
-      color: var(--text);
-      backdrop-filter: blur(12px);
-      transition: border-color 0.18s ease, background 0.18s ease, color 0.18s ease, transform 0.18s ease;
-      white-space: nowrap;
+      transition: opacity 0.18s ease, transform 0.18s ease;
     }
 
-    .social-btn:hover {
-      transform: translateY(-2px);
+    .contact-discover-btn:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
     }
 
-    .social-btn.linkedin {
-      border-color: rgba(10, 102, 194, 0.45);
+    .contact-right h3 {
+      font-family: 'Manrope', sans-serif;
+      font-weight: 800;
+      font-size: 26px;
+      color: #14171F;
+      margin-bottom: 28px;
     }
 
-    .social-btn.linkedin:hover {
-      background: rgba(10, 102, 194, 0.14);
-      border-color: rgba(10, 102, 194, 0.7);
-      color: #5BA4E5;
+    .contact-info-list {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
     }
 
-    .social-btn.instagram {
-      border-color: rgba(225, 48, 108, 0.35);
+    .contact-info-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      text-decoration: none;
     }
 
-    .social-btn.instagram:hover {
-      background: rgba(225, 48, 108, 0.1);
-      border-color: rgba(225, 48, 108, 0.65);
-      color: #F06292;
-    }
-
-    .social-btn.gmail {
-      border-color: rgba(234, 67, 53, 0.35);
-    }
-
-    .social-btn.gmail:hover {
-      background: rgba(234, 67, 53, 0.1);
-      border-color: rgba(234, 67, 53, 0.65);
-      color: #EF5350;
-    }
-
-    .social-btn svg {
+    .contact-info-icon {
       flex-shrink: 0;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(var(--primary-rgb), 0.1);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .contact-info-text {
+      font-size: 15.5px;
+      font-weight: 600;
+      color: #20242E;
+    }
+
+    .contact-info-row:hover .contact-info-text {
+      color: var(--primary);
+    }
+
+    .contact-info-row:hover .contact-info-icon {
+      background: rgba(var(--primary-rgb), 0.18);
+    }
+
+    @media (max-width: 900px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .contact-section {
+        padding: 60px 24px;
+      }
     }
 
     .footer {
@@ -2882,15 +2943,15 @@
 
     .modal-close {
       position: absolute;
-      top: 18px;
+      top: 24px;
       right: 18px;
       width: 32px;
       height: 32px;
       border-radius: 50%;
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      color: var(--text-dim);
-      font-size: 16px;
+      background: transparent;
+      border: none;
+      color: var(--primary);
+      font-size: 18px;
       line-height: 1;
       display: flex;
       align-items: center;
@@ -2899,7 +2960,7 @@
     }
 
     .modal-close:hover {
-      color: var(--text);
+      opacity: 0.75;
     }
 
     .modal-eyebrow {
@@ -2963,6 +3024,121 @@
       background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%238088AC' stroke-width='2'><polyline points='6 9 12 15 18 9'/></svg>");
       background-repeat: no-repeat;
       background-position: right 14px center;
+    }
+
+    /* ── Custom Dropdown ── */
+    .custom-select-wrap {
+      position: relative;
+      width: 100%;
+    }
+
+    .custom-select-trigger {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      padding: 11px 40px 11px 14px;
+      border-radius: 9px;
+      outline: none;
+      cursor: pointer;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      transition: border-color 0.15s ease;
+      box-sizing: border-box;
+    }
+
+    .custom-select-trigger.placeholder {
+      color: var(--text-dim);
+    }
+
+    .custom-select-trigger:focus,
+    .custom-select-trigger.open {
+      border-color: var(--primary);
+    }
+
+    .custom-select-trigger svg {
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+      opacity: 0.55;
+    }
+
+    .custom-select-trigger.open svg {
+      transform: rotate(180deg);
+      opacity: 1;
+    }
+
+    .custom-select-panel {
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      right: 0;
+      background: var(--glass-bg, #1a1d2e);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      z-index: 9999;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+      backdrop-filter: blur(16px);
+      opacity: 0;
+      transform: translateY(-6px);
+      pointer-events: none;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+    }
+
+    .custom-select-panel.open {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .custom-select-option {
+      padding: 11px 16px;
+      font-size: 13.5px;
+      color: var(--text-dim);
+      cursor: pointer;
+      transition: background 0.12s ease, color 0.12s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .custom-select-option:not(:last-child) {
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .custom-select-option:hover {
+      background: rgba(var(--primary-rgb), 0.1);
+      color: var(--text);
+    }
+
+    .custom-select-option.selected {
+      color: var(--primary);
+      background: rgba(var(--primary-rgb), 0.07);
+    }
+
+    .custom-select-option .opt-check {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      color: var(--primary);
+      transition: opacity 0.15s ease;
+    }
+
+    .custom-select-option.selected .opt-check {
+      opacity: 1;
+    }
+
+    .form-group.has-error .custom-select-trigger {
+      border-color: #F87171;
     }
 
     .form-row-2 {
@@ -3113,10 +3289,6 @@
         padding: 40px 14px 16px;
       }
 
-      .final-cta {
-        padding: 48px 14px;
-      }
-
       .hiw-sticky-content {
         padding: 0 14px;
       }
@@ -3128,16 +3300,81 @@
       h2 {
         font-size: 22px;
       }
+    }
+    /* ── Help Banner ── */
+    .help-banner {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 99;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--primary);
+      color: #fff;
+      padding: 12px 18px 12px 14px;
+      border-radius: 100px;
+      box-shadow: 0 8px 28px rgba(0, 174, 239, 0.35);
+      font-family: 'Inter', sans-serif;
+      font-size: 13.5px;
+      font-weight: 600;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      animation: banner-in 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+      animation-delay: 1.2s;
+    }
 
-      .social-links {
-        flex-direction: column;
-        align-items: stretch;
-      }
+    .help-banner:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 36px rgba(0, 174, 239, 0.45);
+    }
 
-      .social-btn {
+    .help-banner .hb-icon {
+      width: 32px;
+      height: 32px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .help-banner .hb-text {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .help-banner .hb-label {
+      font-size: 11px;
+      font-weight: 500;
+      opacity: 0.85;
+      letter-spacing: 0.02em;
+    }
+
+    .help-banner .hb-number {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    @keyframes banner-in {
+      from { opacity: 0; transform: translateY(16px) scale(0.95); }
+      to   { opacity: 1; transform: translateY(0)   scale(1); }
+    }
+
+    @media (max-width: 480px) {
+      .help-banner {
+        bottom: 16px;
+        right: 16px;
+        left: 16px;
+        border-radius: 14px;
         justify-content: center;
       }
     }
+
   </style>
 </head>
 
@@ -3170,10 +3407,10 @@
       <div class="role-tab" data-target="tracking"><span class="role-dot" style="background:transparent;"></span>
         Progress Tracking</div>
       <div class="role-tab" data-target="faq"><span class="role-dot" style="background:transparent;"></span> FAQ</div>
-      <div class="role-tab" data-target="final-cta"><span class="role-dot" style="background:transparent;"></span>
+      <div class="role-tab" data-target="contact"><span class="role-dot" style="background:transparent;"></span>
         Contact</div>
     </div>
-    <div class="nav-cta" id="navCta">Start Your Journey</div>
+    <div class="nav-cta" id="navCta">Join Now</div>
     <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
         stroke-linecap="round" stroke-linejoin="round">
@@ -3195,7 +3432,7 @@
         </div>
         <button class="modal-close" id="mobileNavClose" aria-label="Close menu"
           style="position:relative; top:0; right:0;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
             stroke-linecap="round" stroke-linejoin="round">
             <line x1="18" y1="6" x2="6" y2="18" />
             <line x1="6" y1="6" x2="18" y2="18" />
@@ -3209,9 +3446,9 @@
         <button class="mobile-nav-link" data-target="manager" type="button">Reporting Manager</button>
         <button class="mobile-nav-link" data-target="tracking" type="button">Progress Tracking</button>
         <button class="mobile-nav-link" data-target="faq" type="button">FAQ</button>
-        <button class="mobile-nav-link" data-target="final-cta" type="button">Contact</button>
+        <button class="mobile-nav-link" data-target="contact" type="button">Contact</button>
       </div>
-      <button class="btn-primary mobile-nav-cta" id="mobileNavCta" style="width:100%;">Start Your Journey</button>
+      <button class="btn-primary mobile-nav-cta" id="mobileNavCta" style="width:100%;">Join Now</button>
     </div>
   </div>
 
@@ -3291,9 +3528,18 @@
     <!-- ░░ CENTER — Hero ░░ -->
     <div class="hero">
       <div class="hero-chips">
-        <div class="h-chip"><span class="chip-icon">🧑‍🏫</span> Mentor-Led</div>
-        <div class="h-chip"><span class="chip-icon">🛠</span> Project-Based</div>
-        <div class="h-chip"><span class="chip-icon">🎯</span> Career-Focused</div>
+        <div class="h-chip">
+          <span class="chip-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </span> Mentor-Led</div>
+        <div class="h-chip">
+          <span class="chip-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8 21 12 17 16 21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </span> Project-Based</div>
+        <div class="h-chip">
+          <span class="chip-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/><polyline points="16 12 12 8 8 12"/></svg>
+          </span> Career-Focused</div>
       </div>
       <h1>From <span class="dim">Student</span><br><span
           style="font-size:0.7em; font-weight:500; color:var(--text-dim); letter-spacing:0; display:block; margin:2px 0 4px;">to</span><span
@@ -3502,7 +3748,7 @@
     </div>
     <div class="card card-2">
       <div class="ctitle">Reporting Manager</div>
-      <div class="cval">Priya N.</div>
+      <div class="cval">Priya.N</div>
       <div class="pill">1:1 today, 4 PM</div>
     </div>
     <div class="card card-3">
@@ -4122,45 +4368,47 @@
     </div>
   </section>
 
-  <!-- ===== FINAL CTA ===== -->
-  <section class="final-cta" id="final-cta">
-    <span class="kicker">Get Started</span>
-    <h2>Your journey to becoming a<br>Software Engineer starts with <span class="grad-text">one step</span>.</h2>
-    <p class="final-lines">
-      <strong>Learn with structure.</strong><br>
-      <strong>Build with confidence.</strong><br>
-      <strong>Grow with guidance.</strong>
-    </p>
-    <button class="btn-primary" id="finalCtaBtn" style="padding:16px 36px; font-size:15px;">Start Your Journey
-      →</button>
+  <!-- ===== CONTACT (Roboroid-style, light theme) ===== -->
+  <section class="contact-section" id="contact">
+    <div class="contact-grid">
+      <div class="contact-left">
+        <img src="src/images/logo.png" alt="NimbleX Logo" class="contact-logo-img">
+        <p>NimbleX is an industry-oriented engineering academy that combines expert mentorship, real-world projects, and dedicated progress tracking. We help learners become confident, job-ready Software Engineers through structured, project-based learning and continuous guidance from Architects and Reporting Managers.</p>
+        <button class="btn-primary" id="finalCtaBtn" style="padding:16px 36px; font-size:15px;">Start Your Journey →</button>
+      </div>
 
-    <div class="social-links">
-      <!-- LinkedIn -->
-      <a class="social-btn linkedin" href="https://www.linkedin.com/company/nimblex" target="_blank" rel="noopener">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-        </svg>
-        LinkedIn
-      </a>
+      <div class="contact-right">
+        <h3>Contact Info</h3>
+        <div class="contact-info-list">
+          <a class="contact-info-row" href="tel:+917598699896">
+            <span class="contact-info-icon">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </span>
+            <span class="contact-info-text">(+91) 7598699896</span>
+          </a>
 
-      <!-- Instagram -->
-      <a class="social-btn instagram" href="https://www.instagram.com/nimblex.in" target="_blank" rel="noopener">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z" />
-        </svg>
-        Instagram
-      </a>
+          <a class="contact-info-row" href="https://www.linkedin.com/company/nimblex" target="_blank" rel="noopener">
+            <span class="contact-info-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </span>
+            <span class="contact-info-text">linkedin.com/company/nimblex</span>
+          </a>
 
-      <!-- Gmail -->
-      <a class="social-btn gmail" href="mailto:contact@nimblex.dev">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.910 1.528-1.145C21.69 2.28 24 3.434 24 5.457z" />
-        </svg>
-        contact@nimblex.dev
-      </a>
+          <a class="contact-info-row" href="https://www.instagram.com/nimblex.in" target="_blank" rel="noopener">
+            <span class="contact-info-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+            </span>
+            <span class="contact-info-text">instagram.com/nimblex.in</span>
+          </a>
+
+          <a class="contact-info-row" href="mailto:contact@nimblex.dev">
+            <span class="contact-info-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </span>
+            <span class="contact-info-text">contact@nimblex.dev</span>
+          </a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -4210,29 +4458,56 @@
             </div>
             <div class="form-group" id="group-level">
               <label class="form-label" for="field-level">Experience Level</label>
-              <select class="form-select" id="field-level">
-                <option value="">Select one</option>
-                <option value="student">Student</option>
-                <option value="fresher">Fresh Graduate</option>
-                <option value="switcher">Career Switcher</option>
-                <option value="working">Working Professional</option>
-              </select>
+              <div class="custom-select-wrap" id="wrap-level">
+                <button type="button" class="custom-select-trigger placeholder" id="trigger-level" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="trigger-text">Select one</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="custom-select-panel" id="panel-level" role="listbox">
+                  <div class="custom-select-option" data-value="student" role="option"><span class="opt-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Student</div>
+                  <div class="custom-select-option" data-value="fresher" role="option"><span class="opt-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Fresh Graduate</div>
+                  <div class="custom-select-option" data-value="switcher" role="option"><span class="opt-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Career Switcher</div>
+                  <div class="custom-select-option" data-value="working" role="option"><span class="opt-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Working Professional</div>
+                </div>
+                <select class="form-select" id="field-level" style="display:none;" aria-hidden="true" tabindex="-1">
+                  <option value="">Select one</option>
+                  <option value="student">Student</option>
+                  <option value="fresher">Fresh Graduate</option>
+                  <option value="switcher">Career Switcher</option>
+                  <option value="working">Working Professional</option>
+                </select>
+              </div>
               <div class="form-error">Please select your experience level.</div>
             </div>
           </div>
 
+          <!-- COURSE/TRACK FIELD — commented out, add back later
           <div class="form-group" id="group-course">
             <label class="form-label" for="field-course">Course / Track Interested In</label>
-            <select class="form-select" id="field-course">
-              <option value="">Select a track</option>
-              <option value="fullstack">Full-Stack Development</option>
-              <option value="frontend">Frontend Development</option>
-              <option value="backend">Backend Development</option>
-              <option value="ai">AI Applications</option>
-              <option value="notsure">Not sure yet — help me decide</option>
-            </select>
+            <div class="custom-select-wrap" id="wrap-course">
+              <button type="button" class="custom-select-trigger placeholder" id="trigger-course" aria-haspopup="listbox" aria-expanded="false">
+                <span class="trigger-text">Select a track</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="custom-select-panel" id="panel-course" role="listbox">
+                <div class="custom-select-option" data-value="fullstack" role="option"><span class="opt-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Full-Stack Development</div>
+                <div class="custom-select-option" data-value="frontend" role="option"><span class="opt-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Frontend Development</div>
+                <div class="custom-select-option" data-value="backend" role="option"><span class="opt-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Backend Development</div>
+                <div class="custom-select-option" data-value="ai" role="option"><span class="opt-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>AI Applications</div>
+                <div class="custom-select-option" data-value="notsure" role="option"><span class="opt-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Not sure yet — help me decide</div>
+              </div>
+              <select class="form-select" id="field-course" style="display:none;" aria-hidden="true" tabindex="-1">
+                <option value="">Select a track</option>
+                <option value="fullstack">Full-Stack Development</option>
+                <option value="frontend">Frontend Development</option>
+                <option value="backend">Backend Development</option>
+                <option value="ai">AI Applications</option>
+                <option value="notsure">Not sure yet — help me decide</option>
+              </select>
+            </div>
             <div class="form-error">Please select a track.</div>
           </div>
+          -->
 
           <button type="submit" class="modal-submit" id="modalSubmitBtn">Submit &amp; Start Journey →</button>
           <p class="modal-note">By submitting, you agree to be contacted by NimbleX about your enrollment.</p>
@@ -4271,6 +4546,14 @@
           scrollToTarget(document.getElementById('why'));
         });
       });
+
+      // ===== Contact section "Discover More" -> scroll to Why NimbleX =====
+      var contactDiscoverBtn = document.getElementById('contactDiscoverBtn');
+      if (contactDiscoverBtn) {
+        contactDiscoverBtn.addEventListener('click', function () {
+          scrollToTarget(document.getElementById('why'));
+        });
+      }
 
       // ===== Signup Modal =====
       var modalOverlay = document.getElementById('signupModal');
@@ -4366,7 +4649,7 @@
         var email = document.getElementById('field-email').value.trim();
         var city = document.getElementById('field-city').value.trim();
         var level = document.getElementById('field-level').value;
-        var course = document.getElementById('field-course').value;
+        // var course = document.getElementById('field-course').value; // COURSE FIELD — disabled
 
         var mobilePattern = /^[+0-9\s-]{7,15}$/;
         var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -4376,23 +4659,77 @@
         var validEmail = validateField('group-email', emailPattern.test(email));
         var validCity = validateField('group-city', city.length > 1);
         var validLevel = validateField('group-level', level !== '');
-        var validCourse = validateField('group-course', course !== '');
+        // var validCourse = validateField('group-course', course !== ''); // COURSE FIELD — disabled
 
-        if (!(validName && validMobile && validEmail && validCity && validLevel && validCourse)) {
+        if (!(validName && validMobile && validEmail && validCity && validLevel)) {
           return;
         }
 
         modalSubmitBtn.disabled = true;
         modalSubmitBtn.textContent = 'Submitting…';
 
-        setTimeout(function () {
+        // ── Google Sheets Integration ──────────────────────────────────────
+        // SETUP STEPS:
+        // 1. Open your Google Sheet → Extensions → Apps Script
+        // 2. Paste the Apps Script code from the comment below, deploy as Web App
+        //    (Execute as: Me | Who has access: Anyone) → copy the Web App URL
+        // 3. Replace SHEETS_URL below with your Web App URL
+        //
+        // Apps Script code to paste (uses doGet to avoid CORS issues):
+        // ─────────────────────────────────────────────────────────────────
+        // function doGet(e) {
+        //   var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+        //   var p = e.parameter;
+        //   if (sheet.getLastRow() === 0) {
+        //     sheet.appendRow(['Timestamp','Name','Mobile','Email','City','Level']);
+        //   }
+        //   sheet.appendRow([
+        //     new Date().toLocaleString('en-IN', {timeZone:'Asia/Kolkata'}),
+        //     p.name, p.mobile, p.email, p.city, p.level
+        //   ]);
+        //   return ContentService
+        //     .createTextOutput(JSON.stringify({status:'ok'}))
+        //     .setMimeType(ContentService.MimeType.JSON);
+        // }
+        // ─────────────────────────────────────────────────────────────────
+
+        var SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzbeHd5M1HhViAjDq8kw7qP-IPEa4bdU_NLYolx4rhAGxCNZIiukTKgcbpUjiXzck-mFQ/exec';
+
+        // Form-encoded POST — Apps Script accepts this without CORS preflight
+        var formData = new FormData();
+        formData.append('name', name);
+        formData.append('mobile', mobile);
+        formData.append('email', email);
+        formData.append('city', city);
+        formData.append('level', level);
+
+        fetch(SHEETS_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          body: formData
+        })
+        .then(function() {
+          onSubmitSuccess();
+        })
+        .catch(function(err) {
+          console.error('Sheets error:', err);
+          onSubmitSuccess();
+        });
+
+        function onSubmitSuccess() {
           modalForm.style.display = 'none';
           modalSuccess.classList.add('open');
           modalSubmitBtn.disabled = false;
           modalSubmitBtn.textContent = 'Submit & Start Journey →';
           signupForm.reset();
+          // Reset custom dropdowns
+          document.querySelectorAll('.custom-select-trigger').forEach(function(t) {
+            t.querySelector('.trigger-text').textContent = 'Select one'; // course reset removed
+            t.classList.add('placeholder');
+          });
+          document.querySelectorAll('.custom-select-option').forEach(function(o) { o.classList.remove('selected'); });
           document.querySelectorAll('.form-group').forEach(function (g) { g.classList.remove('has-error'); });
-        }, 600);
+        }
       });
 
       // ===== Role-strip tab navigation =====
@@ -4415,7 +4752,7 @@
       });
 
       // ===== Keep role tabs in sync with scroll position =====
-      var navSections = ['why', 'how-it-works', 'projects', 'mentors', 'manager', 'tracking', 'faq', 'final-cta'];
+      var navSections = ['why', 'how-it-works', 'projects', 'mentors', 'manager', 'tracking', 'faq','contact'];
       var navTabs = document.querySelectorAll('.role-tab');
       var mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
       // Sections with no nav tab fall through to the next one that does
@@ -4427,7 +4764,7 @@
         'manager': 'manager',
         'tracking': 'tracking',
         'faq': 'faq',
-        'final-cta': 'final-cta'
+        'contact': 'contact'
       };
 
       function syncActiveTabOnScroll() {
@@ -4439,9 +4776,9 @@
             currentId = id;
           }
         });
-        // Force last tab active when at bottom of page
+        // Force contact tab active when at bottom of page
         if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight - 10) {
-          currentId = navSections[navSections.length - 1];
+          currentId = 'contact';
         }
         var activeTab = sectionTabMap[currentId] || currentId;
         navTabs.forEach(function (t) {
@@ -4625,6 +4962,99 @@
           stepCards.forEach(function (card) { observer.observe(card); });
         }
       })();
+
+      // ===== AUTO-OPEN SIGNUP MODAL ONCE PER SESSION =====
+      (function() {
+        if (sessionStorage.getItem('nx_modal_shown')) return;
+        setTimeout(function() {
+          var modal = document.getElementById('signupModal');
+          if (modal && !modal.classList.contains('open')) {
+            modal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            sessionStorage.setItem('nx_modal_shown', '1');
+          }
+        }, 10000);
+      })();
+
+      // ===== CUSTOM DROPDOWNS =====
+      (function() {
+        var dropdowns = [
+          { wrap: 'wrap-level',  trigger: 'trigger-level',  panel: 'panel-level',  native: 'field-level' },
+          // { wrap: 'wrap-course', trigger: 'trigger-course', panel: 'panel-course', native: 'field-course' } // COURSE FIELD — disabled
+        ];
+
+        dropdowns.forEach(function(d) {
+          var trigger  = document.getElementById(d.trigger);
+          var panel    = document.getElementById(d.panel);
+          var native   = document.getElementById(d.native);
+          var options  = panel.querySelectorAll('.custom-select-option');
+
+          function openPanel() {
+            trigger.classList.add('open');
+            panel.classList.add('open');
+            trigger.setAttribute('aria-expanded', 'true');
+          }
+
+          function closePanel() {
+            trigger.classList.remove('open');
+            panel.classList.remove('open');
+            trigger.setAttribute('aria-expanded', 'false');
+          }
+
+          trigger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            var isOpen = panel.classList.contains('open');
+            // Close all other dropdowns first
+            dropdowns.forEach(function(other) {
+              document.getElementById(other.trigger).classList.remove('open');
+              document.getElementById(other.panel).classList.remove('open');
+              document.getElementById(other.trigger).setAttribute('aria-expanded', 'false');
+            });
+            if (!isOpen) openPanel();
+          });
+
+          options.forEach(function(opt) {
+            opt.addEventListener('click', function() {
+              var val   = opt.getAttribute('data-value');
+              var label = opt.textContent.trim();
+              // Update trigger label
+              trigger.querySelector('.trigger-text').textContent = label;
+              trigger.classList.remove('placeholder');
+              // Update selected state
+              options.forEach(function(o) { o.classList.remove('selected'); });
+              opt.classList.add('selected');
+              // Sync hidden native select
+              native.value = val;
+              native.dispatchEvent(new Event('change'));
+              closePanel();
+              // Clear validation error
+              var grp = document.getElementById('group-' + d.native.replace('field-', ''));
+              if (grp) grp.classList.remove('has-error');
+            });
+          });
+        });
+
+        // Close on outside click
+        document.addEventListener('click', function() {
+          dropdowns.forEach(function(d) {
+            document.getElementById(d.trigger).classList.remove('open');
+            document.getElementById(d.panel).classList.remove('open');
+            document.getElementById(d.trigger).setAttribute('aria-expanded', 'false');
+          });
+        });
+
+        // Close on Escape
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') {
+            dropdowns.forEach(function(d) {
+              document.getElementById(d.trigger).classList.remove('open');
+              document.getElementById(d.panel).classList.remove('open');
+              document.getElementById(d.trigger).setAttribute('aria-expanded', 'false');
+            });
+          }
+        });
+      })();
+
     })();
   </script>
 
@@ -4654,6 +5084,20 @@
       }
     })();
   </script>
+
+  <!-- Help Banner -->
+  <a class="help-banner" href="tel:+917598699896">
+    <span class="hb-icon">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.71 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.62 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z"/>
+      </svg>
+    </span>
+    <span class="hb-text">
+      <span class="hb-label">Need help? Talk to us</span>
+      <span class="hb-number">+91 75986 99896</span>
+    </span>
+  </a>
+
 </body>
 
 </html>
