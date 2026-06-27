@@ -14,10 +14,12 @@
       --bg: #0B1020;
       --bg-panel: #0F1530;
       --bg-panel-2: #121833;
-      --primary: #6366F1;
-      --primary-rgb: 99, 102, 241;
-      --secondary: #06B6D4;
-      --secondary-rgb: 6, 182, 212;
+      --primary: #00AEEF;
+      --primary-rgb: 0, 174, 239;
+      --primary-light: #33C5F5;
+      --primary-dark: #0090CC;
+      --secondary: #0090CC;
+      --secondary-rgb: 0, 144, 204;
       --accent: #10B981;
       --amber: #F59E0B;
       --red: #EF4444;
@@ -51,25 +53,25 @@
 
     /* ===== LIGHT MODE OVERRIDES ===== */
     body[data-mode="light"] {
-      --bg: #F0F2FA;
+      --bg: #F7F8FC;
       --bg-panel: #FFFFFF;
-      --bg-panel-2: #E8EAF4;
-      --text: #0F1221;
-      --text-dim: #4A5270;
-      --border: rgba(15, 18, 33, 0.1);
-      --glass: rgba(255, 255, 255, 0.7);
-      --glass-border: rgba(15, 18, 33, 0.12);
+      --bg-panel-2: #F0F1F8;
+      --text: #161B33;
+      --text-dim: #5C6485;
+      --border: rgba(20, 20, 50, 0.09);
+      --glass: rgba(20, 20, 50, 0.035);
+      --glass-border: rgba(20, 20, 50, 0.1);
     }
 
     /* Shadows */
     body[data-mode="light"] .mockup,
     body[data-mode="light"] .dash-panel,
     body[data-mode="light"] .card {
-      box-shadow: 0 8px 32px rgba(15, 18, 33, 0.1);
+      box-shadow: 0 20px 50px rgba(20, 20, 50, 0.08);
     }
 
     body[data-mode="light"] .nav {
-      background: rgba(240, 242, 250, 0.92);
+      background: rgba(247, 248, 252, 0.9);
     }
 
     body[data-mode="light"] .topbar {
@@ -91,20 +93,20 @@
 
     /* Glow blobs — softer in light */
     body[data-mode="light"] .glow {
-      opacity: 0.3;
+      opacity: 0.5;
     }
 
     /* Feature chips — stronger saturation on light bg */
     body[data-mode="light"] .h-chip:nth-child(1) {
-      background: rgba(99, 102, 241, 0.1);
-      border-color: rgba(99, 102, 241, 0.4);
-      color: #4F46E5;
+      background: rgba(var(--primary-rgb), 0.1);
+      border-color: rgba(var(--primary-rgb), 0.4);
+      color: var(--primary);
     }
 
     body[data-mode="light"] .h-chip:nth-child(2) {
-      background: rgba(6, 182, 212, 0.1);
-      border-color: rgba(6, 182, 212, 0.4);
-      color: #0891B2;
+      background: rgba(59, 123, 250, 0.1);
+      border-color: rgba(59, 123, 250, 0.4);
+      color: #1D5FEF;
     }
 
     body[data-mode="light"] .h-chip:nth-child(3) {
@@ -114,11 +116,11 @@
     }
 
     body[data-mode="light"] .h-chip:nth-child(1) .chip-icon {
-      background: rgba(99, 102, 241, 0.15);
+      background: rgba(var(--primary-rgb), 0.15);
     }
 
     body[data-mode="light"] .h-chip:nth-child(2) .chip-icon {
-      background: rgba(6, 182, 212, 0.15);
+      background: rgba(59, 123, 250, 0.15);
     }
 
     body[data-mode="light"] .h-chip:nth-child(3) .chip-icon {
@@ -235,98 +237,6 @@
     }
 
     /* ===== THEME SWITCHER PANEL ===== */
-    .theme-switcher {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      z-index: 999;
-      background: var(--bg-panel);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 14px 16px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      font-family: 'Inter', sans-serif;
-      backdrop-filter: blur(12px);
-    }
-
-    .theme-switcher .ts-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .theme-switcher .ts-label {
-      font-size: 11px;
-      color: var(--text-dim);
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 2px;
-    }
-
-    .ts-swatch {
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      cursor: pointer;
-      border: 2px solid transparent;
-      transition: transform 0.15s ease, border-color 0.15s ease;
-      padding: 0;
-    }
-
-    .ts-swatch:hover {
-      transform: scale(1.12);
-    }
-
-    .ts-swatch.active {
-      border-color: var(--text);
-    }
-
-    .ts-mode-toggle {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 100px;
-      padding: 4px;
-      cursor: pointer;
-      width: fit-content;
-    }
-
-    .ts-mode-btn {
-      font-size: 12px;
-      font-weight: 600;
-      padding: 6px 12px;
-      border-radius: 100px;
-      color: var(--text-dim);
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .ts-mode-btn.active {
-      background: var(--primary);
-      color: white;
-    }
-
-    @media (max-width: 640px) {
-      .theme-switcher {
-        bottom: 12px;
-        right: 12px;
-        left: 12px;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-      }
-    }
-
     section {
       padding: 90px 40px;
     }
@@ -351,7 +261,7 @@
       gap: 8px;
       background: rgba(var(--primary-rgb), 0.12);
       border: 1px solid rgba(var(--primary-rgb), 0.3);
-      color: var(--secondary);
+      color: var(--primary);
       font-size: 13px;
       font-weight: 600;
       padding: 6px 14px;
@@ -371,7 +281,7 @@
     }
 
     .grad-text {
-      background: linear-gradient(90deg, var(--secondary), var(--accent));
+      background: linear-gradient(90deg, var(--primary-light), var(--primary-dark));
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
@@ -400,13 +310,24 @@
       align-items: center;
       gap: 24px;
       flex-shrink: 0;
+      min-width: 0;
     }
 
     .logo {
-      font-family: 'Manrope', sans-serif;
-      font-weight: 800;
-      font-size: 16px;
-      color: var(--text);
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-img {
+      height: 42px;
+      width: auto;
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .logo-img {
+        height: 34px;
+      }
     }
 
     .status-chip {
@@ -422,7 +343,31 @@
       height: 6px;
       border-radius: 50%;
       background: var(--accent);
-      box-shadow: 0 0 6px var(--accent);
+      box-shadow: 0 0 4px var(--accent);
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .status-chip .blip::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 50%;
+      border: 1.5px solid var(--accent);
+      opacity: 0;
+      animation: blip-ring 2s ease-out infinite;
+    }
+
+    @keyframes blip-ring {
+      0% {
+        transform: scale(1);
+        opacity: 0.6;
+      }
+
+      100% {
+        transform: scale(2);
+        opacity: 0;
+      }
     }
 
     .topbar-right {
@@ -449,13 +394,16 @@
     }
 
     .nav-cta {
-      background: var(--secondary);
-      color: #04222A;
+      background: var(--primary);
+      color: #FFFFFF;
       padding: 9px 18px;
       border-radius: 7px;
       font-size: 13px;
       font-weight: 700;
       cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .role-strip {
@@ -475,8 +423,13 @@
       gap: 7px;
       border: 1px solid transparent;
       cursor: pointer;
-      transition: background 0.15s ease, color 0.15s ease;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
       white-space: nowrap;
+    }
+
+    .role-tab:not(.active):hover {
+      border-color: rgba(var(--primary-rgb), 0.35);
+      color: var(--text);
     }
 
     .role-tab.active {
@@ -716,6 +669,7 @@
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       border-color: transparent;
       box-shadow: 0 0 16px rgba(var(--primary-rgb), 0.4);
+      color: #fff;
     }
 
     .j-node .j-lbl {
@@ -953,7 +907,7 @@
     }
 
     .tl-prompt {
-      color: #6366F1;
+      color: var(--primary);
       flex-shrink: 0;
     }
 
@@ -966,7 +920,7 @@
     }
 
     .tl-cyan {
-      color: #06B6D4;
+      color: var(--secondary);
     }
 
     .tl-amber {
@@ -987,7 +941,7 @@
       display: inline-block;
       width: 7px;
       height: 12px;
-      background: #6366F1;
+      background: var(--primary);
       margin-left: 2px;
       vertical-align: middle;
       animation: blink 1.1s step-end infinite;
@@ -1293,8 +1247,26 @@
     }
 
     @media (max-width: 1000px) {
+      .status-chip {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11px;
+        overflow: visible;
+        min-width: 0;
+      }
+
+      .status-chip-text {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        min-width: 0;
+      }
+    }
+
+    @media (max-width: 1000px) {
       .hero {
-        padding: 50px 24px 20px;
+        padding: 50px 20px 20px;
       }
 
       h1 {
@@ -1303,6 +1275,19 @@
 
       .card {
         display: none;
+      }
+
+      svg.connections {
+        display: none;
+      }
+
+      .stage {
+        padding: 40px 16px 32px;
+        margin-bottom: 0;
+      }
+
+      .stage-header {
+        margin-bottom: 28px !important;
       }
 
       .dash-panel {
@@ -1322,17 +1307,6 @@
 
       .topbar {
         padding: 14px 20px;
-      }
-
-      .role-strip {
-        max-width: 55vw;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-      }
-
-      .role-strip::-webkit-scrollbar {
-        display: none;
       }
 
       section {
@@ -1361,6 +1335,279 @@
 
       .role-tab .role-dot {
         display: none;
+      }
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      color: var(--text);
+      cursor: pointer;
+      flex-shrink: 0;
+      margin-left: auto;
+      padding: 0;
+    }
+
+    .mobile-menu-btn svg {
+      display: block;
+      width: 20px;
+      height: 20px;
+    }
+
+    .mobile-menu-btn:hover {
+      border-color: rgba(var(--primary-rgb), 0.35);
+    }
+
+    .mobile-nav-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 300;
+      background: rgba(5, 7, 16, 0.55);
+      backdrop-filter: blur(3px);
+      display: none;
+    }
+
+    .mobile-nav-overlay.open {
+      display: block;
+    }
+
+    .mobile-nav-panel {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 82%;
+      max-width: 320px;
+      background: var(--bg-panel);
+      border-left: 1px solid var(--glass-border);
+      box-shadow: -20px 0 60px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      transform: translateX(100%);
+      transition: transform 0.25s ease;
+    }
+
+    .mobile-nav-overlay.open .mobile-nav-panel {
+      transform: translateX(0);
+    }
+
+    .mobile-nav-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .mobile-nav-head .logo {
+      font-size: 15px;
+    }
+
+    .mobile-nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+    }
+
+    .mobile-nav-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      color: var(--text-dim);
+      font-size: 14.5px;
+      font-weight: 600;
+      background: none;
+      border: 1px solid transparent;
+      text-align: left;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .mobile-nav-link:hover {
+      border-color: rgba(var(--primary-rgb), 0.3);
+      color: var(--text);
+    }
+
+    .mobile-nav-link.active {
+      background: rgba(var(--primary-rgb), 0.12);
+      color: var(--primary);
+      border-color: rgba(var(--primary-rgb), 0.3);
+    }
+
+    .mobile-nav-cta {
+      margin-top: 16px;
+    }
+
+    @media (max-width: 1000px) {
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 64px;
+        padding: 12px 20px;
+        gap: 12px;
+      }
+
+      .topbar-left {
+        min-width: 0;
+        gap: 12px;
+        flex: 1;
+      }
+
+      .role-strip,
+      .nav-cta {
+        display: none !important;
+      }
+
+      .mobile-menu-btn {
+        display: inline-flex !important;
+        flex-shrink: 0;
+        margin-left: 0;
+        align-self: center;
+      }
+
+      h2 {
+        font-size: 28px;
+      }
+
+      .section-sub {
+        font-size: 14.5px;
+      }
+
+      section {
+        padding: 60px 24px;
+      }
+
+      .parallax-section {
+        padding: 60px 0;
+      }
+
+      .final-cta {
+        padding: 70px 24px;
+      }
+
+      .wrap {
+        padding: 0 20px;
+      }
+
+      .footer {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+        padding: 24px 20px;
+      }
+
+      .dash-metric-row {
+        flex-wrap: wrap;
+      }
+
+      .dash-metric {
+        min-width: calc(50% - 6px);
+      }
+
+      .org-row {
+        flex-wrap: wrap;
+      }
+
+      .org-badge {
+        margin-left: 0;
+        margin-top: 6px;
+      }
+
+      .check-in-row {
+        flex-wrap: wrap;
+        gap: 4px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      section {
+        padding: 40px 16px;
+      }
+
+      .parallax-section {
+        padding: 40px 0;
+      }
+
+      .wrap {
+        padding: 0 16px;
+      }
+
+      .final-cta {
+        padding: 56px 16px;
+      }
+
+      h1 {
+        font-size: 30px;
+      }
+
+      h2 {
+        font-size: 24px;
+      }
+
+      .tagline {
+        font-size: 15px;
+      }
+
+      .sub {
+        font-size: 14.5px;
+      }
+
+      .topbar {
+        padding: 10px 14px;
+        gap: 10px;
+      }
+
+      .status-chip {
+        font-size: 11px;
+        overflow: visible;
+        min-width: 0;
+      }
+
+      .status-chip-text {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        min-width: 0;
+      }
+
+      .dash-panel {
+        border-radius: 14px;
+      }
+
+      .dash-body {
+        padding: 16px;
+      }
+
+      .dash-metric {
+        min-width: 100%;
+      }
+
+      .compare-card,
+      .project-card,
+      .track-card,
+      .org-card,
+      .glass-card,
+      .manager-panel {
+        padding: 18px;
+      }
+
+      .modal-card {
+        padding: 22px 18px;
+        border-radius: 14px;
+      }
+
+      .modal-title {
+        font-size: 20px;
       }
     }
 
@@ -1632,9 +1879,9 @@
     }
 
     .mini-journey .mj-arr {
-      color: var(--border);
+      color: var(--text-dim);
       font-size: 16px;
-      opacity: 0.6;
+      opacity: 0.5;
       font-weight: 400;
     }
 
@@ -1860,7 +2107,7 @@
 
     .hiw-container {
       display: flex;
-      gap: 60px;
+      gap: 40px;
       position: relative;
       align-items: flex-start;
     }
@@ -1874,6 +2121,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      padding-left: 20px;
     }
 
     .hiw-scroll-col {
@@ -2020,6 +2268,10 @@
         height: auto;
         max-height: none;
         margin-bottom: 60px;
+      }
+
+      .hiw-sticky-content {
+        padding: 0 24px;
       }
 
       .hiw-dynamic-visual {
@@ -2386,19 +2638,51 @@
 
     .faq-item {
       border-bottom: 1px solid var(--border);
-      padding: 20px 0;
     }
 
     .faq-q {
       font-size: 15.5px;
       font-weight: 700;
-      margin-bottom: 8px;
       display: flex;
+      align-items: center;
       gap: 10px;
+      padding: 20px 0;
+      cursor: pointer;
+      user-select: none;
+      transition: color 0.15s ease;
+    }
+
+    .faq-q:hover {
+      color: var(--primary-light);
     }
 
     .faq-q .qmark {
       color: var(--secondary);
+      flex-shrink: 0;
+    }
+
+    .faq-q .faq-chevron {
+      margin-left: auto;
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.25s ease, background 0.15s ease;
+    }
+
+    .faq-item.open .faq-q .faq-chevron {
+      transform: rotate(180deg);
+      background: rgba(var(--primary-rgb), 0.14);
+      border-color: rgba(var(--primary-rgb), 0.35);
+    }
+
+    .faq-item.open .faq-q {
+      color: var(--text);
     }
 
     .faq-a {
@@ -2406,6 +2690,15 @@
       color: var(--text-dim);
       line-height: 1.6;
       padding-left: 24px;
+      overflow: hidden;
+      max-height: 0;
+      padding-bottom: 0;
+      transition: max-height 0.3s ease, padding-bottom 0.3s ease;
+    }
+
+    .faq-item.open .faq-a {
+      max-height: 300px;
+      padding-bottom: 20px;
     }
 
     /* ===== FINAL CTA ===== */
@@ -2431,6 +2724,70 @@
     .final-lines strong {
       color: var(--text);
       font-weight: 700;
+    }
+
+    .social-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+
+    .social-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 20px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1px solid var(--glass-border);
+      background: var(--glass);
+      color: var(--text);
+      backdrop-filter: blur(12px);
+      transition: border-color 0.18s ease, background 0.18s ease, color 0.18s ease, transform 0.18s ease;
+      white-space: nowrap;
+    }
+
+    .social-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .social-btn.linkedin {
+      border-color: rgba(10, 102, 194, 0.45);
+    }
+
+    .social-btn.linkedin:hover {
+      background: rgba(10, 102, 194, 0.14);
+      border-color: rgba(10, 102, 194, 0.7);
+      color: #5BA4E5;
+    }
+
+    .social-btn.instagram {
+      border-color: rgba(225, 48, 108, 0.35);
+    }
+
+    .social-btn.instagram:hover {
+      background: rgba(225, 48, 108, 0.1);
+      border-color: rgba(225, 48, 108, 0.65);
+      color: #F06292;
+    }
+
+    .social-btn.gmail {
+      border-color: rgba(234, 67, 53, 0.35);
+    }
+
+    .social-btn.gmail:hover {
+      background: rgba(234, 67, 53, 0.1);
+      border-color: rgba(234, 67, 53, 0.65);
+      color: #EF5350;
+    }
+
+    .social-btn svg {
+      flex-shrink: 0;
     }
 
     .footer {
@@ -2691,10 +3048,59 @@
         grid-template-columns: 1fr;
       }
     }
+
+    @media (max-width: 360px) {
+      section {
+        padding: 36px 14px;
+      }
+
+      .wrap {
+        padding: 0 14px;
+      }
+
+      .hero {
+        padding: 40px 14px 16px;
+      }
+
+      .final-cta {
+        padding: 48px 14px;
+      }
+
+      .hiw-sticky-content {
+        padding: 0 14px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      h2 {
+        font-size: 22px;
+      }
+
+      .cta-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn-primary,
+      .btn-secondary {
+        text-align: center;
+      }
+
+      .social-links {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .social-btn {
+        justify-content: center;
+      }
+    }
   </style>
 </head>
 
-<body>
+<body data-mode="light">
 
   <div class="glow"
     style="top:-150px; left:-100px; width:600px; height:600px; background:radial-gradient(circle, rgba(var(--primary-rgb),0.3), transparent 70%);">
@@ -2705,8 +3111,10 @@
 
   <div class="topbar" id="topbar">
     <div class="topbar-left">
-      <div class="logo">⌁ NimbleX</div>
-      <div class="status-chip"><span class="blip"></span> Now enrolling — Cohort 14</div>
+      <div class="logo">
+        <img src="src/images/logo.png" alt="NimbleX Logo" class="logo-img">
+      </div>
+      <div class="status-chip"><span class="blip"></span><span class="status-chip-text">Founding Cohort · Seats Limited</span></div>
     </div>
     <div class="role-strip" id="topbarNav">
       <div class="role-tab" data-target="why"><span class="role-dot" style="background:transparent;"></span> Why NimbleX
@@ -2724,9 +3132,46 @@
         Contact</div>
     </div>
     <div class="nav-cta" id="navCta">Start Your Journey</div>
+    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="6" x2="21" y2="6" />
+        <line x1="3" y1="12" x2="21" y2="12" />
+        <line x1="3" y1="18" x2="21" y2="18" />
+      </svg>
+    </button>
   </div>
 
   <div style="height:65px;"></div>
+
+  <!-- ===== MOBILE NAV MENU ===== -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay">
+    <div class="mobile-nav-panel">
+      <div class="mobile-nav-head">
+        <div class="logo">
+          <img src="src/images/logo.png" alt="NimbleX Logo" class="logo-img" style="height:34px;">
+        </div>
+        <button class="modal-close" id="mobileNavClose" aria-label="Close menu"
+          style="position:relative; top:0; right:0;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      </div>
+      <div class="mobile-nav-list">
+        <button class="mobile-nav-link" data-target="why" type="button">Why NimbleX</button>
+        <button class="mobile-nav-link" data-target="projects" type="button">Courses</button>
+        <button class="mobile-nav-link" data-target="mentors" type="button">Architects</button>
+        <button class="mobile-nav-link" data-target="manager" type="button">Reporting Manager</button>
+        <button class="mobile-nav-link" data-target="tracking" type="button">Progress Tracking</button>
+        <button class="mobile-nav-link" data-target="faq" type="button">FAQ</button>
+        <button class="mobile-nav-link" data-target="final-cta" type="button">Contact</button>
+      </div>
+      <button class="btn-primary mobile-nav-cta" id="mobileNavCta" style="width:100%;">Start Your Journey</button>
+    </div>
+  </div>
 
   <!-- ===== HERO ===== -->
   <div class="hero-outer">
@@ -2754,10 +3199,11 @@
               <div style="margin-bottom:14px;">
                 <div style="display:flex; justify-content:space-between; font-size:10px; margin-bottom:5px;">
                   <span style="color:#8B949E; font-family:'Inter',sans-serif;">Overall Progress</span>
-                  <span style="color:#6366F1; font-weight:700; font-family:'Inter',sans-serif;">42%</span>
+                  <span style="color:var(--primary); font-weight:700; font-family:'Inter',sans-serif;">42%</span>
                 </div>
                 <div class="prog-bar-bg">
-                  <div class="prog-bar-fill" style="width:42%; background:linear-gradient(90deg,#6366F1,#06B6D4);">
+                  <div class="prog-bar-fill"
+                    style="width:42%; background:linear-gradient(90deg,var(--primary),var(--secondary));">
                   </div>
                 </div>
               </div>
@@ -2978,7 +3424,7 @@
                 </div>
                 <div style="height:5px; background:rgba(255,255,255,0.07); border-radius:100px; overflow:hidden;">
                   <div
-                    style="height:100%; width:57%; background:linear-gradient(90deg,#6366F1,#06B6D4); border-radius:100px;">
+                    style="height:100%; width:57%; background:linear-gradient(90deg,var(--primary),var(--secondary)); border-radius:100px;">
                   </div>
                 </div>
               </div>
@@ -3324,7 +3770,13 @@
         confidence — and every one becomes part of your professional portfolio.</p>
       <div class="projects-grid">
         <div class="project-card">
-          <div class="picon" style="background:rgba(var(--primary-rgb),0.15); color:var(--primary);">◧</div>
+          <div class="picon" style="background:rgba(var(--primary-rgb),0.15); color:var(--primary);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 18 22 12 16 6" />
+              <polyline points="8 6 2 12 8 18" />
+            </svg>
+          </div>
           <div class="ptitle">Frontend Development</div>
           <ul>
             <li>Portfolio Website</li>
@@ -3333,7 +3785,14 @@
           </ul>
         </div>
         <div class="project-card">
-          <div class="picon" style="background:rgba(var(--secondary-rgb),0.15); color:var(--secondary);">⌁</div>
+          <div class="picon" style="background:rgba(var(--secondary-rgb),0.15); color:var(--secondary);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2" />
+              <path d="M8 21h8" />
+              <path d="M12 17v4" />
+            </svg>
+          </div>
           <div class="ptitle">Backend Development</div>
           <ul>
             <li>REST APIs</li>
@@ -3342,7 +3801,14 @@
           </ul>
         </div>
         <div class="project-card">
-          <div class="picon" style="background:rgba(16,185,129,0.15); color:var(--accent);">▤</div>
+          <div class="picon" style="background:rgba(16,185,129,0.15); color:var(--accent);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round">
+              <ellipse cx="12" cy="5" rx="9" ry="3" />
+              <path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5" />
+              <path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3" />
+            </svg>
+          </div>
           <div class="ptitle">Database</div>
           <ul>
             <li>Relational Database Design</li>
@@ -3351,7 +3817,16 @@
           </ul>
         </div>
         <div class="project-card">
-          <div class="picon" style="background:rgba(245,158,11,0.15); color:var(--amber);">✦</div>
+          <div class="picon" style="background:rgba(245,158,11,0.15); color:var(--amber);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2a10 10 0 0 1 10 10" />
+              <path d="M12 6v6l4 2" />
+              <circle cx="12" cy="12" r="1" />
+              <path d="M2 12C2 6.48 6.48 2 12 2" />
+              <path d="M6 20.5A10 10 0 0 0 12 22a10 10 0 0 0 9.29-6.29" />
+            </svg>
+          </div>
           <div class="ptitle">AI Applications</div>
           <ul>
             <li>AI Chatbots</li>
@@ -3559,25 +4034,45 @@
       <h2>Frequently Asked <span class="grad-text">Questions</span></h2>
       <div class="faq-list">
         <div class="faq-item">
-          <div class="faq-q"><span class="qmark">Q.</span> Do I need prior programming knowledge?</div>
+          <div class="faq-q"><span class="qmark">Q.</span> Do I need prior programming knowledge?<span
+              class="faq-chevron"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9" />
+              </svg></span></div>
           <div class="faq-a">No. We start from fundamentals and gradually advance to full-stack and AI concepts.</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q"><span class="qmark">Q.</span> How is NimbleX different from other platforms?</div>
+          <div class="faq-q"><span class="qmark">Q.</span> How is NimbleX different from other platforms?<span
+              class="faq-chevron"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9" />
+              </svg></span></div>
           <div class="faq-a">Every Engineer receives personalized guidance through Architects and Reporting Managers,
             ensuring consistent progress and accountability.</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q"><span class="qmark">Q.</span> Will I work on projects?</div>
+          <div class="faq-q"><span class="qmark">Q.</span> Will I work on projects?<span class="faq-chevron"><svg
+                width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9" />
+              </svg></span></div>
           <div class="faq-a">Yes. Project-based learning is a core part of the program.</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q"><span class="qmark">Q.</span> How is progress tracked?</div>
+          <div class="faq-q"><span class="qmark">Q.</span> How is progress tracked?<span class="faq-chevron"><svg
+                width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9" />
+              </svg></span></div>
           <div class="faq-a">Attendance, assignments, projects, assessments, and learning milestones are continuously
             monitored through our progress tracking system.</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q"><span class="qmark">Q.</span> Who should join NimbleX?</div>
+          <div class="faq-q"><span class="qmark">Q.</span> Who should join NimbleX?<span class="faq-chevron"><svg
+                width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9" />
+              </svg></span></div>
           <div class="faq-a">Students, graduates, career switchers, and anyone looking to build strong software
             engineering skills.</div>
         </div>
@@ -3596,6 +4091,35 @@
     </p>
     <button class="btn-primary" id="finalCtaBtn" style="padding:16px 36px; font-size:15px;">Start Your Journey
       →</button>
+
+    <div class="social-links">
+      <!-- LinkedIn -->
+      <a class="social-btn linkedin" href="https://www.linkedin.com/company/nimblex" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+        </svg>
+        LinkedIn
+      </a>
+
+      <!-- Instagram -->
+      <a class="social-btn instagram" href="https://www.instagram.com/nimblex.in" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z" />
+        </svg>
+        Instagram
+      </a>
+
+      <!-- Gmail -->
+      <a class="social-btn gmail" href="mailto:contact@nimblex.dev">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.910 1.528-1.145C21.69 2.28 24 3.434 24 5.457z" />
+        </svg>
+        contact@nimblex.dev
+      </a>
+    </div>
   </section>
 
   <div class="footer">
@@ -3681,68 +4205,8 @@
     </div>
   </div>
 
-  <!-- ===== TEMP THEME SWITCHER (for review only — remove before launch) ===== -->
-  <div class="theme-switcher">
-    <div class="ts-row" style="flex-direction:column; align-items:flex-start; gap:6px;">
-      <span class="ts-label">Accent Color</span>
-      <div class="ts-row">
-        <button class="ts-swatch active" data-color="indigo" style="background:#6366F1;"
-          title="Indigo (default)"></button>
-        <button class="ts-swatch" data-color="red" style="background:#EF4444;" title="Red"></button>
-        <button class="ts-swatch" data-color="blue" style="background:#3B82F6;" title="Blue"></button>
-      </div>
-    </div>
-    <div class="ts-row" style="flex-direction:column; align-items:flex-start; gap:6px;">
-      <span class="ts-label">Mode</span>
-      <div class="ts-mode-toggle">
-        <button class="ts-mode-btn active" data-mode="dark">🌙 Dark</button>
-        <button class="ts-mode-btn" data-mode="light">☀️ Light</button>
-      </div>
-    </div>
-  </div>
-
   <script>
     (function () {
-      const root = document.documentElement;
-      const body = document.body;
-
-      const colorThemes = {
-        indigo: { primary: '#6366F1', primaryRgb: '99,102,241', secondary: '#06B6D4', secondaryRgb: '6,182,212' },
-        red: { primary: '#EF4444', primaryRgb: '239,68,68', secondary: '#F59E0B', secondaryRgb: '245,158,11' },
-        blue: { primary: '#3B82F6', primaryRgb: '59,130,246', secondary: '#06B6D4', secondaryRgb: '6,182,212' }
-      };
-
-      function setColor(name) {
-        const c = colorThemes[name];
-        if (!c) return;
-        root.style.setProperty('--primary', c.primary);
-        root.style.setProperty('--primary-rgb', c.primaryRgb);
-        root.style.setProperty('--secondary', c.secondary);
-        root.style.setProperty('--secondary-rgb', c.secondaryRgb);
-        document.querySelectorAll('.ts-swatch').forEach(function (btn) {
-          btn.classList.toggle('active', btn.dataset.color === name);
-        });
-      }
-
-      function setMode(mode) {
-        body.setAttribute('data-mode', mode);
-        document.querySelectorAll('.ts-mode-btn').forEach(function (btn) {
-          btn.classList.toggle('active', btn.dataset.mode === mode);
-        });
-      }
-
-      document.querySelectorAll('.ts-swatch').forEach(function (btn) {
-        btn.addEventListener('click', function () { setColor(btn.dataset.color); });
-      });
-
-      document.querySelectorAll('.ts-mode-btn').forEach(function (btn) {
-        btn.addEventListener('click', function () { setMode(btn.dataset.mode); });
-      });
-
-      // Defaults
-      setColor('indigo');
-      setMode('dark');
-
       // ===== Smooth-scroll nav links (offset for fixed topbar) =====
       var topbarEl = document.getElementById('topbar');
       function scrollToTarget(targetEl) {
@@ -3799,6 +4263,52 @@
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && modalOverlay.classList.contains('open')) closeModal();
       });
+
+      // ===== Mobile hamburger menu =====
+      var mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      var mobileNavOverlay = document.getElementById('mobileNavOverlay');
+      var mobileNavClose = document.getElementById('mobileNavClose');
+      var mobileNavCta = document.getElementById('mobileNavCta');
+
+      function openMobileNav() {
+        if (!mobileNavOverlay) return;
+        mobileNavOverlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeMobileNav() {
+        if (!mobileNavOverlay) return;
+        mobileNavOverlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', openMobileNav);
+      if (mobileNavClose) mobileNavClose.addEventListener('click', closeMobileNav);
+      if (mobileNavOverlay) {
+        mobileNavOverlay.addEventListener('click', function (e) {
+          if (e.target === mobileNavOverlay) closeMobileNav();
+        });
+      }
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && mobileNavOverlay && mobileNavOverlay.classList.contains('open')) closeMobileNav();
+      });
+
+      document.querySelectorAll('.mobile-nav-link').forEach(function (link) {
+        link.addEventListener('click', function () {
+          closeMobileNav();
+          var targetId = link.getAttribute('data-target');
+          setTimeout(function () {
+            scrollToTarget(document.getElementById(targetId));
+          }, 260);
+        });
+      });
+
+      if (mobileNavCta) {
+        mobileNavCta.addEventListener('click', function () {
+          closeMobileNav();
+          setTimeout(openModal, 260);
+        });
+      }
 
       function validateField(groupId, isValid) {
         var group = document.getElementById(groupId);
@@ -3863,10 +4373,23 @@
       });
 
       // ===== Keep role tabs in sync with scroll position =====
-      var navSections = ['why', 'projects', 'mentors', 'manager', 'tracking', 'faq', 'final-cta'];
+      var navSections = ['why', 'how-it-works', 'projects', 'mentors', 'manager', 'tracking', 'faq', 'final-cta'];
       var navTabs = document.querySelectorAll('.role-tab');
+      var mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+      // Sections with no nav tab fall through to the next one that does
+      var sectionTabMap = {
+        'why': 'why',
+        'how-it-works': 'why',
+        'projects': 'projects',
+        'mentors': 'mentors',
+        'manager': 'manager',
+        'tracking': 'tracking',
+        'faq': 'faq',
+        'final-cta': 'final-cta'
+      };
+
       function syncActiveTabOnScroll() {
-        var offset = (topbarEl ? topbarEl.offsetHeight : 65) + 40;
+        var offset = (topbarEl ? topbarEl.offsetHeight : 65) + 20;
         var currentId = navSections[0];
         navSections.forEach(function (id) {
           var el = document.getElementById(id);
@@ -3874,15 +4397,36 @@
             currentId = id;
           }
         });
+        // Force last tab active when at bottom of page
+        if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight - 10) {
+          currentId = navSections[navSections.length - 1];
+        }
+        var activeTab = sectionTabMap[currentId] || currentId;
         navTabs.forEach(function (t) {
-          var isMatch = t.getAttribute('data-target') === currentId;
+          var isMatch = t.getAttribute('data-target') === activeTab;
           t.classList.toggle('active', isMatch);
           var dot = t.querySelector('.role-dot');
           if (dot) dot.style.background = isMatch ? 'var(--primary)' : 'transparent';
         });
+        mobileNavLinks.forEach(function (link) {
+          link.classList.toggle('active', link.getAttribute('data-target') === activeTab);
+        });
       }
       window.addEventListener('scroll', syncActiveTabOnScroll, { passive: true });
       syncActiveTabOnScroll();
+
+
+      // ===== FAQ TOGGLE =====
+      document.querySelectorAll('.faq-q').forEach(function (q) {
+        q.addEventListener('click', function () {
+          var item = q.closest('.faq-item');
+          var isOpen = item.classList.contains('open');
+          // Close all
+          document.querySelectorAll('.faq-item').forEach(function (i) { i.classList.remove('open'); });
+          // Toggle clicked
+          if (!isOpen) item.classList.add('open');
+        });
+      });
 
       // ===== LEFT TERMINAL — Typing Animation =====
       (function () {
@@ -3891,15 +4435,15 @@
 
         // Lines to type: [prompt?, html_content, delay_after_ms]
         var lines = [
-          [true, '<span style="color:#6366F1;">$</span> <span style="color:#C9D1D9;">start journey</span>', 700],
+          [true, '<span style="color:var(--primary);">$</span> <span style="color:#C9D1D9;">start journey</span>', 700],
           [false, '<span style="color:#484F58;">Initializing your path...</span>', 500],
           [false, '<span style="color:#10B981;">✓ Learn fundamentals</span>', 350],
           [false, '<span style="color:#10B981;">✓ Practice coding daily</span>', 350],
           [false, '<span style="color:#10B981;">✓ Build real projects</span>', 350],
           [false, '<span style="color:#484F58;">&nbsp;</span>', 200],
           [false, '<span style="color:#8B949E; font-family:Inter,sans-serif; font-size:10px; font-weight:700; letter-spacing:0.05em;">PROGRESS</span>', 200],
-          [false, '<div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:4px;"><span style="color:#8B949E;font-family:Inter,sans-serif;">Journey</span><span style="color:#F59E0B;font-weight:700;font-family:Inter,sans-serif;">35%</span></div><div style="height:4px;background:rgba(255,255,255,0.07);border-radius:100px;overflow:hidden;"><div style="height:100%;width:35%;background:linear-gradient(90deg,#6366F1,#F59E0B);border-radius:100px;"></div></div>', 800],
-          [true, '<span style="color:#6366F1;">$</span> <span style="color:#C9D1D9;"><span class="cursor"></span></span>', 2000],
+          [false, '<div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:4px;"><span style="color:#8B949E;font-family:Inter,sans-serif;">Journey</span><span style="color:#F59E0B;font-weight:700;font-family:Inter,sans-serif;">35%</span></div><div style="height:4px;background:rgba(255,255,255,0.07);border-radius:100px;overflow:hidden;"><div style="height:100%;width:35%;background:linear-gradient(90deg,var(--primary),#F59E0B);border-radius:100px;"></div></div>', 800],
+          [true, '<span style="color:var(--primary);">$</span> <span style="color:#C9D1D9;"><span class="cursor"></span></span>', 2000],
         ];
 
         var lineIdx = 0;
