@@ -1,4 +1,4 @@
-    (function () {
+(function () {
       // ===== Smooth-scroll nav links (offset for fixed topbar) =====
       var topbarEl = document.getElementById('topbar');
       function scrollToTarget(targetEl) {
@@ -21,6 +21,14 @@
           scrollToTarget(document.getElementById('why'));
         });
       });
+
+      // ===== Contact section "Discover More" -> scroll to Why NimbleX =====
+      var contactDiscoverBtn = document.getElementById('contactDiscoverBtn');
+      if (contactDiscoverBtn) {
+        contactDiscoverBtn.addEventListener('click', function () {
+          scrollToTarget(document.getElementById('why'));
+        });
+      }
 
       // ===== Signup Modal =====
       var modalOverlay = document.getElementById('signupModal');
@@ -116,7 +124,7 @@
         var email = document.getElementById('field-email').value.trim();
         var city = document.getElementById('field-city').value.trim();
         var level = document.getElementById('field-level').value;
-        var course = document.getElementById('field-course').value;
+        // var course = document.getElementById('field-course').value; // COURSE FIELD — disabled
 
         var mobilePattern = /^[+0-9\s-]{7,15}$/;
         var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -126,23 +134,35 @@
         var validEmail = validateField('group-email', emailPattern.test(email));
         var validCity = validateField('group-city', city.length > 1);
         var validLevel = validateField('group-level', level !== '');
-        var validCourse = validateField('group-course', course !== '');
+        // var validCourse = validateField('group-course', course !== ''); // COURSE FIELD — disabled
 
-        if (!(validName && validMobile && validEmail && validCity && validLevel && validCourse)) {
+        if (!(validName && validMobile && validEmail && validCity && validLevel)) {
           return;
         }
 
         modalSubmitBtn.disabled = true;
         modalSubmitBtn.textContent = 'Submitting…';
 
-        setTimeout(function () {
+        submitToGoogleSheets(
+          { name: name, mobile: mobile, email: email, city: city, level: level },
+          onSubmitSuccess
+        );
+
+
+        function onSubmitSuccess() {
           modalForm.style.display = 'none';
           modalSuccess.classList.add('open');
           modalSubmitBtn.disabled = false;
           modalSubmitBtn.textContent = 'Submit & Start Journey →';
           signupForm.reset();
+          // Reset custom dropdowns
+          document.querySelectorAll('.custom-select-trigger').forEach(function(t) {
+            t.querySelector('.trigger-text').textContent = 'Select one'; // course reset removed
+            t.classList.add('placeholder');
+          });
+          document.querySelectorAll('.custom-select-option').forEach(function(o) { o.classList.remove('selected'); });
           document.querySelectorAll('.form-group').forEach(function (g) { g.classList.remove('has-error'); });
-        }, 600);
+        }
       });
 
       // ===== Role-strip tab navigation =====
@@ -165,7 +185,7 @@
       });
 
       // ===== Keep role tabs in sync with scroll position =====
-      var navSections = ['why', 'how-it-works', 'projects', 'mentors', 'manager', 'tracking', 'faq', 'final-cta'];
+      var navSections = ['why', 'how-it-works', 'projects', 'mentors', 'manager', 'tracking', 'faq','contact'];
       var navTabs = document.querySelectorAll('.role-tab');
       var mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
       // Sections with no nav tab fall through to the next one that does
@@ -177,31 +197,31 @@
         'manager': 'manager',
         'tracking': 'tracking',
         'faq': 'faq',
-        'final-cta': 'final-cta'
+        'contact': 'contact'
       };
 
       function syncActiveTabOnScroll() {
         var offset = (topbarEl ? topbarEl.offsetHeight : 65) + 20;
-        var currentId = navSections[0];
+        var currentId = null;
         navSections.forEach(function (id) {
           var el = document.getElementById(id);
           if (el && el.getBoundingClientRect().top - offset <= 0) {
             currentId = id;
           }
         });
-        // Force last tab active when at bottom of page
+        // Force contact tab active when at bottom of page
         if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight - 10) {
-          currentId = navSections[navSections.length - 1];
+          currentId = 'contact';
         }
-        var activeTab = sectionTabMap[currentId] || currentId;
+        var activeTab = currentId !== null ? (sectionTabMap[currentId] || currentId) : null;
         navTabs.forEach(function (t) {
-          var isMatch = t.getAttribute('data-target') === activeTab;
+          var isMatch = activeTab !== null && t.getAttribute('data-target') === activeTab;
           t.classList.toggle('active', isMatch);
           var dot = t.querySelector('.role-dot');
           if (dot) dot.style.background = isMatch ? 'var(--primary)' : 'transparent';
         });
         mobileNavLinks.forEach(function (link) {
-          link.classList.toggle('active', link.getAttribute('data-target') === activeTab);
+          link.classList.toggle('active', activeTab !== null && link.getAttribute('data-target') === activeTab);
         });
       }
       window.addEventListener('scroll', syncActiveTabOnScroll, { passive: true });
@@ -375,8 +395,103 @@
           stepCards.forEach(function (card) { observer.observe(card); });
         }
       })();
+
+      // ===== AUTO-OPEN SIGNUP MODAL ONCE PER SESSION =====
+      (function() {
+        if (sessionStorage.getItem('nx_modal_shown')) return;
+        setTimeout(function() {
+          var modal = document.getElementById('signupModal');
+          if (modal && !modal.classList.contains('open')) {
+            modal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            sessionStorage.setItem('nx_modal_shown', '1');
+          }
+        }, 10000);
+      })();
+
+      // ===== CUSTOM DROPDOWNS =====
+      (function() {
+        var dropdowns = [
+          { wrap: 'wrap-level',  trigger: 'trigger-level',  panel: 'panel-level',  native: 'field-level' },
+          // { wrap: 'wrap-course', trigger: 'trigger-course', panel: 'panel-course', native: 'field-course' } // COURSE FIELD — disabled
+        ];
+
+        dropdowns.forEach(function(d) {
+          var trigger  = document.getElementById(d.trigger);
+          var panel    = document.getElementById(d.panel);
+          var native   = document.getElementById(d.native);
+          var options  = panel.querySelectorAll('.custom-select-option');
+
+          function openPanel() {
+            trigger.classList.add('open');
+            panel.classList.add('open');
+            trigger.setAttribute('aria-expanded', 'true');
+          }
+
+          function closePanel() {
+            trigger.classList.remove('open');
+            panel.classList.remove('open');
+            trigger.setAttribute('aria-expanded', 'false');
+          }
+
+          trigger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            var isOpen = panel.classList.contains('open');
+            // Close all other dropdowns first
+            dropdowns.forEach(function(other) {
+              document.getElementById(other.trigger).classList.remove('open');
+              document.getElementById(other.panel).classList.remove('open');
+              document.getElementById(other.trigger).setAttribute('aria-expanded', 'false');
+            });
+            if (!isOpen) openPanel();
+          });
+
+          options.forEach(function(opt) {
+            opt.addEventListener('click', function() {
+              var val   = opt.getAttribute('data-value');
+              var label = opt.textContent.trim();
+              // Update trigger label
+              trigger.querySelector('.trigger-text').textContent = label;
+              trigger.classList.remove('placeholder');
+              // Update selected state
+              options.forEach(function(o) { o.classList.remove('selected'); });
+              opt.classList.add('selected');
+              // Sync hidden native select
+              native.value = val;
+              native.dispatchEvent(new Event('change'));
+              closePanel();
+              // Clear validation error
+              var grp = document.getElementById('group-' + d.native.replace('field-', ''));
+              if (grp) grp.classList.remove('has-error');
+            });
+          });
+        });
+
+        // Close on outside click
+        document.addEventListener('click', function() {
+          dropdowns.forEach(function(d) {
+            document.getElementById(d.trigger).classList.remove('open');
+            document.getElementById(d.panel).classList.remove('open');
+            document.getElementById(d.trigger).setAttribute('aria-expanded', 'false');
+          });
+        });
+
+        // Close on Escape
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') {
+            dropdowns.forEach(function(d) {
+              document.getElementById(d.trigger).classList.remove('open');
+              document.getElementById(d.panel).classList.remove('open');
+              document.getElementById(d.trigger).setAttribute('aria-expanded', 'false');
+            });
+          }
+        });
+      })();
+
     })();
-    (function () {
+
+  // ===== Parallax & 3D Tilt Effects =====
+(function () {
       var sceneLeft = document.getElementById('parallax-scene-left');
       var sceneRight = document.getElementById('parallax-scene-right');
       if (sceneLeft && typeof Parallax !== 'undefined') new Parallax(sceneLeft);
@@ -398,3 +513,20 @@
         });
       }
     })();
+
+    // ======= Download Brochure Button ========== //
+
+document.getElementById("downloadBrochure").addEventListener("click", function (e) {
+    e.preventDefault();
+
+    const link = document.createElement("a");
+    link.href = "docs/brochure.pdf";
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.setAttribute("download", "NimbleX_Brochure.pdf");
+    link.style.display = "none";
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+});
