@@ -513,3 +513,18 @@
         });
       }
     })();
+
+    // ======= Download Brochure Button ========== //
+
+document.getElementById("downloadBrochure").addEventListener("click", function (e) {
+    e.preventDefault();
+
+    const link = document.createElement("a");
+    link.href = "docs/brochure.pdf";
+    link.setAttribute("download", "NimbleX_Brochure.pdf");
+    link.style.display = "none";
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+});

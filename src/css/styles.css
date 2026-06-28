@@ -2701,6 +2701,20 @@
       font-weight: 600;
     }
 
+    .btn-brochure{
+      background: var(--primary);
+      border: none;
+      color: #FFFFFF;
+      padding: 9px 18px;
+      border-radius: 7px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
     /* ===== FAQ ===== */
 
     .faq-item {
