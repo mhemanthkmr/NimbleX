@@ -34,7 +34,9 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Obfuscate JavaScript
-        run: npx javascript-obfuscator src/js/main.js --output src/js/main.js
+        run: |
+          npx javascript-obfuscator src/js/main.js --output src/js/main.js
+          npx javascript-obfuscator src/js/sheets.js --output src/js/sheets.js
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
