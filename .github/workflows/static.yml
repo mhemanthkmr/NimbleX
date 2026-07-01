@@ -37,6 +37,7 @@ jobs:
         run: |
           npx javascript-obfuscator src/js/main.js --output src/js/main.js
           npx javascript-obfuscator src/js/sheets.js --output src/js/sheets.js
+          npx javascript-obfuscator src/js/analytics.js --output src/js/analytics.js
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
