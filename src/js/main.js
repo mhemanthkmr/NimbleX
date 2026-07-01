@@ -548,24 +548,27 @@
 
     // ======= Download Brochure Button ========== //
 
-document.getElementById("downloadBrochure").addEventListener("click", function (e) {
-    e.preventDefault();
+var brochureBtn = document.getElementById("downloadBrochure");
+if (brochureBtn) {
+    brochureBtn.addEventListener("click", function (e) {
+        e.preventDefault();
 
-    const link = document.createElement("a");
-    link.href = "docs/brochure.pdf";
-    link.target = "_blank";
-    link.rel = "noopener noreferrer";
-    link.setAttribute("download", "NimbleX_Brochure.pdf");
-    link.style.display = "none";
+        const link = document.createElement("a");
+        link.href = "docs/brochure.pdf";
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.setAttribute("download", "NimbleX_Brochure.pdf");
+        link.style.display = "none";
 
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
 
-    if (window.NXAnalytics) {
-        window.NXAnalytics.trackEvent("file_download", {
-            file_name: "NimbleX_Brochure.pdf",
-            link_url: "docs/brochure.pdf"
-        });
-    }
-});
+        if (window.NXAnalytics) {
+            window.NXAnalytics.trackEvent("file_download", {
+                file_name: "NimbleX_Brochure.pdf",
+                link_url: "docs/brochure.pdf"
+            });
+        }
+    });
+}
