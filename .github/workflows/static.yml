@@ -33,11 +33,16 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      - name: Obfuscate JavaScript
+      - name: Minify CSS and JS, and Obfuscate JS
         run: |
-          npx javascript-obfuscator src/js/main.js --output src/js/main.js
-          npx javascript-obfuscator src/js/sheets.js --output src/js/sheets.js
-          npx javascript-obfuscator src/js/analytics.js --output src/js/analytics.js
+          npm install -g clean-css-cli terser javascript-obfuscator
+          cleancss -o src/css/styles.css src/css/styles.css
+          terser src/js/main.js -c -m -o src/js/main.js
+          terser src/js/sheets.js -c -m -o src/js/sheets.js
+          terser src/js/analytics.js -c -m -o src/js/analytics.js
+          javascript-obfuscator src/js/main.js --output src/js/main.js
+          javascript-obfuscator src/js/sheets.js --output src/js/sheets.js
+          javascript-obfuscator src/js/analytics.js --output src/js/analytics.js
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
